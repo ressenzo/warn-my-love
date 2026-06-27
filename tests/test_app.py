@@ -38,4 +38,5 @@ def test_send_notification(mock_post, mock_create_text):
     mock_post.assert_called_once_with(
         url="https://example.com/webhook",
         json={"content": "created text from mock"},
+        timeout=5
     )
