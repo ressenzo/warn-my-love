@@ -14,9 +14,10 @@ def test_main_sends_notification(mock_ask_llm, mock_send_notification):
     # Assert
     mock_send_notification.assert_called_once()
 
+@patch("builtins.print")
 @patch("app.notification.send_notification")
 @patch("app.llm.ask_llm")
-def test_main_does_not_send_notification(mock_ask_llm, mock_send_notification):
+def test_main_does_not_send_notification(mock_ask_llm, mock_send_notification, mock_print):
     # Arrange
     mock_ask_llm.return_value = GameModel(has_game_today=False)
 
@@ -25,3 +26,4 @@ def test_main_does_not_send_notification(mock_ask_llm, mock_send_notification):
 
     # Assert
     mock_send_notification.assert_not_called()
+    mock_print.assert_called_once_with("there is no game today")
