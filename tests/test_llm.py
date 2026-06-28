@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
-from llm import ask_llm, create_client, GameModel
+from src.llm import ask_llm, create_client, GameModel
 
-@patch("llm.create_client")
+@patch("src.llm.create_client")
 def test_ask_llm_returns_game_model(mock_create_client):
     # Arrange
     fake_response = MagicMock()
@@ -26,8 +26,8 @@ def test_ask_llm_returns_game_model(mock_create_client):
         text_format=GameModel,
     )
 
-@patch("llm.OpenAI")
-@patch("llm.os.getenv")
+@patch("src.llm.OpenAI")
+@patch("src.llm.os.getenv")
 def test_create_client(mock_getenv, mock_openai):
     # Arrange
     mock_getenv.return_value = "fake-api-key"

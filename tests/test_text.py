@@ -1,4 +1,4 @@
-from text import create_text
+from src.text import create_text
 
 def test_create_text():
     # Act

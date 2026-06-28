@@ -1,6 +1,6 @@
 import os
 import smtplib
-from text import create_text
+from src.text import create_text
 from email.message import EmailMessage
 
 def send_notification():

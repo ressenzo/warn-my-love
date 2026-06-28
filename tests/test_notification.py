@@ -1,10 +1,9 @@
-import os
 from unittest.mock import MagicMock, Mock, patch
-from notification import send_notification, build_message
+from src.notification import send_notification, build_message
 
-@patch("notification.build_message")
-@patch("notification.os.getenv")
-@patch("notification.smtplib.SMTP_SSL")
+@patch("src.notification.build_message")
+@patch("src.notification.os.getenv")
+@patch("src.notification.smtplib.SMTP_SSL")
 def test_send_notification(mock_smtp, mock_getenv, mock_build_message):
     # Arrange
     mock_getenv.side_effect = lambda key: {
@@ -28,8 +27,8 @@ def test_send_notification(mock_smtp, mock_getenv, mock_build_message):
     )
     smtp.send_message.assert_called_once_with(fake_message)
 
-@patch("notification.create_text")
-@patch("notification.os.getenv")
+@patch("src.notification.create_text")
+@patch("src.notification.os.getenv")
 def test_build_message(mock_getenv, mock_create_text):
     # Arrange
     mock_getenv.side_effect = lambda key: {
@@ -50,7 +49,7 @@ def test_build_message(mock_getenv, mock_create_text):
 
 
 @patch("builtins.print")
-@patch("notification.smtplib.SMTP_SSL")
+@patch("src.notification.smtplib.SMTP_SSL")
 def test_send_notification_prints_error(mock_smtp, mock_print):
     # Arrange
     mock_smtp.side_effect = Exception("SMTP failed")
