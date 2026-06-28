@@ -1,7 +1,8 @@
 from text import create_text
 
 def test_create_text():
-    """Create text to be sent in notification"""
+    # Act
     text = create_text()
 
+    # Assert
     assert text == "Hoje, vai ter jogo."
