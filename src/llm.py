@@ -6,14 +6,15 @@ class GameModel(BaseModel):
     has_game_today: bool
 
 def ask_llm() -> GameModel:
-    print("asking to llm")
+    question = "Is Clube Atlético Mineiro going to play at Arena MRV today?"
+    print(f"asking to llm: {question}")
     client = create_client()
     llm_response = client.responses.parse(
         model="gpt-5.4-mini",
         input=[
             {
                 "role": "user",
-                "content": "Is Clube Atlético Mineiro going to play at Arena MRV today?",
+                "content": question,
             },
         ],
         text_format=GameModel,
