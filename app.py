@@ -2,11 +2,13 @@ from dotenv import load_dotenv
 from src import llm, notification
 
 load_dotenv()
+validator = llm.Validator()
+email_notification = notification.EmailNotification()
 
 def main():
-    response = llm.ask_llm()
+    response = validator.validate()
     if response.has_game_today:
-        notification.send_notification()
+        email_notification.notify()
     else:
         print("there is no game today")
 
