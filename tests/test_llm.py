@@ -13,8 +13,8 @@ def test_validate_returns_game_model(mock_create_client):
     mock_create_client.return_value = fake_client
 
     # Act
-    checker = Validator()
-    result = checker.validate()
+    validator = Validator()
+    result = validator.validate()
 
     # Assert
     assert result.has_game_today is True
@@ -39,9 +39,9 @@ def test_validate_llm_returns_None(mock_create_client):
     mock_create_client.return_value = fake_client
 
     # Act - Assert
-    checker = Validator()
+    validator = Validator()
     with pytest.raises(ValueError, match="No value from LLM"):
-        checker.validate()
+        validator.validate()
 
 @patch("src.llm.OpenAI")
 @patch("src.llm.os.getenv")
@@ -50,8 +50,8 @@ def test_create_client(mock_getenv, mock_openai):
     mock_getenv.return_value = "fake-api-key"
 
     # Act
-    checker = Validator()
-    checker.create_client()
+    validator = Validator()
+    validator.create_client()
 
     # Assert
     mock_getenv.assert_called_once_with("OPENAI_API_KEY")
