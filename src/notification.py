@@ -29,8 +29,8 @@ class EmailNotification(Notification):
     def build_message(self):
         message = EmailMessage()
         message["Subject"] = "Jogo hoje!!!"
-        message["From"] = os.getenv("EMAIL_SENDER")
-        message["To"] = os.getenv("EMAIL_RECEIVER")
+        message["From"] = self.get_email_sender()
+        message["To"] = self.get_email_receiver()
         text = create_text()
         message.set_content(text)
         return message
@@ -46,3 +46,9 @@ class EmailNotification(Notification):
         if not email_password:
             raise ValueError("EMAIL_PASSWORD was not found")
         return email_password
+    
+    def get_email_receiver(self) -> str:
+        email_receiver = os.getenv("EMAIL_RECEIVER")
+        if not email_receiver:
+            raise ValueError("EMAIL_RECEIVER was not found")
+        return email_receiver

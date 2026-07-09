@@ -90,3 +90,15 @@ def test_get_email_password(mock_getenv):
     with pytest.raises(ValueError, match="EMAIL_PASSWORD was not found"):
         email_notification = EmailNotification()
         email_notification.get_email_password()
+
+@patch("src.notification.os.getenv")
+def test_get_email_receiver(mock_getenv):
+    # Arrange
+    mock_getenv.side_effect = lambda key: {
+        "EMAIL_RECEIVER": ""
+    }[key]
+
+    # Act - Assert
+    with pytest.raises(ValueError, match="EMAIL_RECEIVER was not found"):
+        email_notification = EmailNotification()
+        email_notification.get_email_receiver()
